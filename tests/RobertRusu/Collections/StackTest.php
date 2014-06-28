@@ -30,16 +30,45 @@ class StackTest extends \PHPUnit_Framework_TestCase
 
     public function testPushAndPop()
     {
-        $addedFirst = 1;
-        $this->stack->push($addedFirst);
-        $addedSecond = 2;
-        $this->stack->push($addedSecond);
-        $addedThird = 3;
-        $this->stack->push($addedThird);
+        $this->stack->push(1);
+        $this->stack->push(2);
+        $this->stack->push(3);
 
-        $this->assertSame($addedThird, $this->stack->pop());
-        $this->assertSame($addedSecond, $this->stack->pop());
-        $this->assertSame($addedFirst, $this->stack->pop());
+        $this->assertSame(3, $this->stack->pop());
+        $this->assertSame(2, $this->stack->pop());
+        $this->assertSame(1, $this->stack->pop());
         $this->assertNull($this->stack->pop());
     }
+
+    public function testRemove()
+    {
+        $this->stack->push(1);
+        $this->stack->push(2);
+        $this->stack->push(1);
+
+        $this->stack->remove(1);
+        $this->assertSame(1, $this->stack->size());
+        $this->assertSame(2, $this->stack->pop());
+    }
+
+    public function testClear()
+    {
+        $this->stack->push(1);
+        $this->stack->push(2);
+
+        $this->stack->clear();
+        $this->assertTrue($this->stack->isEmpty());
+    }
+
+    public function testContains()
+    {
+        $this->stack->push(1);
+        $this->stack->push(2);
+
+        $this->assertTrue($this->stack->contains(1));
+        $this->assertTrue($this->stack->contains(2));
+        $this->assertFalse($this->stack->contains('1'));
+        $this->assertFalse($this->stack->contains(null));
+    }
+
 } 

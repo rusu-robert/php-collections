@@ -30,16 +30,47 @@ class ArrayQueueTest extends \PHPUnit_Framework_TestCase
 
     public function testEnqueueAndDequeue()
     {
-        $firstAdded = 1;
-        $this->queue->enqueue($firstAdded);
-        $secondAdded = 2;
-        $this->queue->enqueue($secondAdded);
-        $addedThird = 3;
-        $this->queue->enqueue($addedThird);
+        $this->queue->enqueue(1);
+        $this->queue->enqueue(2);
+        $this->queue->enqueue(3);
 
-        $this->assertSame($firstAdded, $this->queue->dequeue());
-        $this->assertSame($secondAdded, $this->queue->dequeue());
-        $this->assertSame($addedThird, $this->queue->dequeue());
+        $this->assertSame(1, $this->queue->dequeue());
+        $this->assertSame(2, $this->queue->dequeue());
+        $this->assertSame(3, $this->queue->dequeue());
         $this->assertNull($this->queue->dequeue());
+    }
+
+    public function testRemove()
+    {
+        $this->queue->enqueue(1);
+        $this->queue->enqueue(2);
+        $this->queue->enqueue(1);
+        $this->queue->enqueue(3);
+
+        $this->queue->remove(1);
+
+        $this->assertEquals(2, $this->queue->size());
+        $this->assertSame(2, $this->queue->dequeue());
+        $this->assertSame(3, $this->queue->dequeue());
+    }
+
+    public function testClear()
+    {
+        $this->queue->enqueue(1);
+        $this->queue->enqueue(2);
+        $this->queue->clear();
+
+        $this->assertTrue($this->queue->isEmpty());
+    }
+
+    public function testContains()
+    {
+        $this->queue->enqueue(1);
+        $this->queue->enqueue(2);
+
+        $this->assertTrue($this->queue->contains(2));
+        $this->assertTrue($this->queue->contains(1));
+        $this->assertFalse($this->queue->contains('1'));
+        $this->assertFalse($this->queue->contains(3));
     }
 } 

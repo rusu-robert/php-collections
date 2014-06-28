@@ -1,0 +1,1 @@
+This is a library containing common used collections
