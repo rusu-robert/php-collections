@@ -1,0 +1,18 @@
+{
+    "name": "RobertRusu/PHPCollections",
+    "description": "Different useful collections",
+    "minimum-stability": "alpha",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Robert Rusu",
+            "email": "rusurobert92@gmail.com"
+        }
+    ],
+    "require": {
+        "phpunit/phpunit": "4.1.3"
+    },
+    "autoload": {
+        "psr-0": { "": "src/" }
+    }
+}
